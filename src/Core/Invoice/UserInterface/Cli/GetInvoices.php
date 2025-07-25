@@ -24,9 +24,12 @@ class GetInvoices extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $invoices = $this->bus->dispatch(new GetInvoicesByStatusAndAmountGreaterQuery(
-            $input->getArgument('amount')
-        ));
+        $invoices = $this->bus->dispatch(
+            new GetInvoicesByStatusAndAmountGreaterQuery(
+                $input->getArgument('status'),
+                $input->getArgument('amount')
+            )
+        );
 
         /** @var InvoiceDTO $invoice */
         foreach ($invoices as $invoice) {
